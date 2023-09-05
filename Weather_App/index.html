@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/b3a87a3d26.js" crossorigin="anonymous"></script>
+    <title>Weather_App</title>
+</head>
+<body>
+    <div class="container">
+        <div class="search_bar">
+            <input type="text" placeholder="Enter Your City" spellcheck="false">
+            <button><i class="fa-solid fa-magnifying-glass size"></i></button> <!-- add search icon font-->
+        </div>
+        <div class="error">
+            <p>Please Enter A Valid City</p><!--
+                //for when we enter wrong city name. instead of displaying undefined, it should show error messache-->
+        </div>
+        <div class="weather">
+            <img src="" alt="" srcset="" class="weather_icon"> <!-- add weather symbol-->
+            <h1 class="temp">22°C</h1>
+            <h2 class="cityname">Yaounde</h2>
+            <div class="details">
+                <div class="col">
+                    <i class="fa-solid fa-droplet type"></i> <!-- add weather symbol for humidity-->
+                    <div>
+                        <p class="humidity">50%</p>
+                        <p>Humidity</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <i class="fa-solid fa-wind type"></i> <!-- add weather symbol for wind-->
+                    <div>
+                        <p class="wind">15km / hour</p>
+                        <p>Wind Speed</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const apiKey ="aa18acc5de609be646f98c829b1bf28f";
+
+        const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+        const search_box = document.querySelector(".search_bar input");
+        const search_Btn = document.querySelector(".search_bar button"); //when you click on button it should send city info
+        const weatherIcon = document.querySelector(".weather_icon");
+
+
+        async function checkWeather(city){
+            const response = await fetch(apiUrl+city +`&appid=${apiKey}`);
+
+            //check response status
+
+            if(response.status==404){
+                document.querySelector(".error").style.display="block";
+                document.querySelector(".weather").style.display="none";
+
+            }
+            else{
+
+                var data = await response.json();  //have all the weather info about the city entered
+
+            console.log(data);
+            //get element by class and update it with info stored in the api about the city entered by their key names
+            document.querySelector(".cityname").innerHTML = data.name;
+            document.querySelector(".temp").innerHTML = data.main.temp + "°C";
+            document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+            document.querySelector(".wind").innerHTML = data.wind.speed + "km/h";
+                //main also stores weather condition so we will se it to chane the weather pics
+
+            if(data.weather[0].main == "Clouds"){
+                weatherIcon.src = "Images/clouds.png";
+            }
+            else if(data.weather[0].main == "Clear"){
+                weatherIcon.src = "Images/clear.png";
+            }
+            else if(data.weather[0].main == "Rain"){
+                weatherIcon.src = "Images/rain.png";
+            }
+            else if(data.weather[0].main == "Drizzle"){
+                weatherIcon.src = "Images/drizzle.png";
+            }
+            else if(data.weather[0].main == "Mist"){
+                weatherIcon.src = "Images/mist.png";
+            }
+
+            }
+            
+            //to display weather page only when user enters a city
+
+            document.querySelector(".weather").style.display = "block";
+            document.querySelector(".error").style.display="none";
+
+
+        }
+
+search_Btn.addEventListener("click",()=>{
+    checkWeather(search_box.value); //will take cityname and pass it to api
+})
+        
+    </script>
+    
+</body>
+</html>
