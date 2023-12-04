@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/b3a87a3d26.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="player">
+            <nav>
+                <div class="circle">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </div>
+                <div class="circle">
+                    <i class="fa-solid fa-lines-leaning"></i>
+                </div>
+            </nav>
+
+
+            <img src="" alt="">
+            <h2>If No Be You</h2>
+            <p>Moses Bliss ft Prosper</p>
+
+            <audio  id="song">
+                <source src="media/" type = "audio/mpeg">
+            </audio>
+
+            <input type="range" value="0" id="progress">
+
+            <footer>
+                <div class="circle">
+                    <i class="fa-solid fa-backward-fast"></i>
+                </div>
+                <div class="middle" onclick="playPause()">
+                    <i class="fa-solid fa-play ctrl-icon"></i>
+                </div>
+                <div class="circle">
+                    <i class="fa-solid fa-forward-fast"></i>
+                </div>
+            </footer>
+        </div>
+    </div>
+    
+
+    
+<script src="script.js"></script>
+</body>
+</html>
